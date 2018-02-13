@@ -3,9 +3,6 @@
   <component name="GroovyCompilerProjectConfiguration">
     <option name="invokeDynamic" value="true" />
   </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="tony" />
-  </component>
   <component name="ProjectResources">
     <xml-schema-version>XMLSchema_1_1</xml-schema-version>
   </component>
