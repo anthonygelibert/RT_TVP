@@ -23,6 +23,7 @@ public final class TVPDaemon {
         System.out.printf("Une autre version : %n%s%n", lsToStringAlternative());
         System.out.printf("Fichier \"RT_TVP.iml\" : %n%s", catToString("RT_TVP.iml"));
         System.out.printf("Fichier \"RT2_TVP.iml\" : %n%s", catToString("RT2_TVP.iml"));
+        System.out.printf("Une autre version du fichier \"RT_TVP.iml\" : %n%s", catToStringAlternative("RT_TVP.iml"));
 
     }
 
@@ -43,7 +44,7 @@ public final class TVPDaemon {
                      .collect(Collectors.joining("\n"));
     }
 
-    /** 1.c: read a text file.*/
+    /** 1.c: read a text file. */
     private static String catToString(final String nomFichier) {
         try (final BufferedReader br = new BufferedReader(new FileReader(nomFichier))) {
             final StringBuilder result = new StringBuilder();
@@ -52,6 +53,19 @@ public final class TVPDaemon {
                 result.append(line).append('\n');
             }
             return result.toString();
+        }
+        catch (final FileNotFoundException ignore) {
+            return String.format("Le fichier \"%s\" est inexistant", nomFichier);
+        }
+        catch (final IOException ignore) {
+            return String.format("Erreur de lecture du fichier \"%s\"", nomFichier);
+        }
+    }
+
+    /** 1.c alternative answer: read a text file. */
+    private static String catToStringAlternative(final String nomFichier) {
+        try (final BufferedReader br = new BufferedReader(new FileReader(nomFichier))) {
+            return br.lines().collect(Collectors.joining("\n"));
         }
         catch (final FileNotFoundException ignore) {
             return String.format("Le fichier \"%s\" est inexistant", nomFichier);
