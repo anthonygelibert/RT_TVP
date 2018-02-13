@@ -74,4 +74,15 @@ public final class TVPDaemon {
             return String.format("Erreur de lecture du fichier \"%s\"", nomFichier);
         }
     }
+
+    /** 1.d: create a folder. */
+    private static boolean mkdir(final String nomRepertoire) {
+        return new File(nomRepertoire).mkdirs();
+    }
+
+    /** 1.d: delete a folder. */
+    private static boolean rmdir(final String nomRepertoire) {
+        return new File(nomRepertoire).delete();
+    }
+
 }
