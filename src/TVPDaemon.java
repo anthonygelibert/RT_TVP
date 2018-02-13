@@ -1,4 +1,10 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * TODO.
@@ -14,7 +20,10 @@ public final class TVPDaemon {
      */
     public static void main(final String... args) {
         System.out.printf("Dossier courant : %n%s", lsToString());
-        System.out.printf("Une autre version : %n%s", lsToStringAlternative());
+        System.out.printf("Une autre version : %n%s%n", lsToStringAlternative());
+        System.out.printf("Fichier \"RT_TVP.iml\" : %n%s", catToString("RT_TVP.iml"));
+        System.out.printf("Fichier \"RT2_TVP.iml\" : %n%s", catToString("RT2_TVP.iml"));
+
     }
 
     /** 1.b: list all the files in the current folder. */
@@ -34,4 +43,21 @@ public final class TVPDaemon {
                      .collect(Collectors.joining("\n"));
     }
 
+    /** 1.c: read a text file.*/
+    private static String catToString(final String nomFichier) {
+        try (final BufferedReader br = new BufferedReader(new FileReader(nomFichier))) {
+            final StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                result.append(line).append('\n');
+            }
+            return result.toString();
+        }
+        catch (final FileNotFoundException ignore) {
+            return String.format("Le fichier \"%s\" est inexistant", nomFichier);
+        }
+        catch (final IOException ignore) {
+            return String.format("Erreur de lecture du fichier \"%s\"", nomFichier);
+        }
+    }
 }
